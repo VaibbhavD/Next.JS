@@ -23,7 +23,7 @@ function Devloper() {
           <h4>{developer.role}</h4>
         </>
       )}
-      {/* <h2>Hi</h2> */}
+      {!developer && <h2>Devloper Dosent Exist !</h2>}
     </>
   );
 }
