@@ -23,11 +23,27 @@ const Dummy_List = [
   },
 ];
 
-function HomePage() {
+function HomePage(props) {
   return (
     <>
-      <MeetupList meetups={Dummy_List} />
+      <MeetupList meetups={props.meetups} />
     </>
   );
 }
+
+export const getStaticProps = async () => {
+  return {
+    props: {
+      meetups: Dummy_List,
+    },
+  };
+};
+// export const getServerSideProps = async () => {
+//   return {
+//     props: {
+//       meetups: Dummy_List,
+//     },
+//   };
+// };
+
 export default HomePage;
