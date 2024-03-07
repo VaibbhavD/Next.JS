@@ -1,27 +1,5 @@
 import MeetupList from "@/components/meetups/MeetupList";
-
-const Dummy_List = [
-  {
-    id: "a1",
-    title: "First Meet",
-    image: "https://wallpaperaccess.com/full/1137443.jpg",
-    address: "New York ",
-  },
-  {
-    id: "a2",
-    title: "Second Meet",
-    image:
-      "https://www.tripsavvy.com/thmb/aQu3cON2Y7jiaR74d_5s8ZOyvtw=/3600x2398/filters:fill(auto,1)/GettyImages-859451446-a27a2e17ac3640bdb36179083e7b6818.jpg",
-    address: "Paries",
-  },
-  {
-    id: "a3",
-    title: "Third Meet",
-    image:
-      "https://www.hdwallpaper.nu/wp-content/uploads/2015/07/869c978552ff253563b883e6f808f066.jpg",
-    address: "America",
-  },
-];
+import { MongoClient } from "mongodb";
 
 function HomePage(props) {
   return (
@@ -32,9 +10,25 @@ function HomePage(props) {
 }
 
 export const getStaticProps = async () => {
+  const Client = await MongoClient.connect(
+    "mongodb+srv://vaibhavdhamanage12:3zI0rEai6QuMopaZ@cluster0.t5bx9cq.mongodb.net/Meetups?retryWrites=true&w=majority&appName=Cluster0"
+  );
+  const db = Client.db();
+  const mettupcollection = db.collection("Meetups");
+  const meetups = await mettupcollection.find().toArray();
+
+  Client.close();
+
+  // res.status(201).json(result);
+
   return {
     props: {
-      meetups: Dummy_List,
+      meetups: meetups.map((m) => ({
+        title: m.title,
+        image: m.image,
+        address: m.address,
+        id: m._id.toString(),
+      })),
     },
   };
 };
