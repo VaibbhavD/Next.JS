@@ -11,7 +11,7 @@ function HomePage(props) {
 
 export const getStaticProps = async () => {
   const Client = await MongoClient.connect(
-    "mongodb+srv://vaibhavdhamanage12:3zI0rEai6QuMopaZ@cluster0.t5bx9cq.mongodb.net/Meetups?retryWrites=true&w=majority&appName=Cluster0"
+    "mongodb+srv://vaibhavdhamanage12:FnNmAenYGVoZKLCK@cluster0.t5bx9cq.mongodb.net/Meetups?retryWrites=true&w=majority&appName=Cluster0"
   );
   const db = Client.db();
   const mettupcollection = db.collection("Meetups");
@@ -30,6 +30,7 @@ export const getStaticProps = async () => {
         id: m._id.toString(),
       })),
     },
+    revalidate: 1,
   };
 };
 // export const getServerSideProps = async () => {

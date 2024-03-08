@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 function MeetupForm() {
   const router = useRouter();
   async function onAddMeetup(Meetupdata) {
-    const response = await fetch("api/new-meetup-apis/", {
+    console.log(Meetupdata);
+    const response = await fetch("/api/new-meetup-apis/", {
       method: "POST",
       body: JSON.stringify(Meetupdata),
       headers: {
